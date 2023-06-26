@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-
+useHead({ bodyAttrs: { class: 'h-full' }, htmlAttrs: { class: 'h-full' } })
 useSeoMeta({
   title: useState<string>('title', () => 'TradeMy'),
 })

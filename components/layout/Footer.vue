@@ -2,7 +2,7 @@
     <footer aria-labelledby="footer-heading" class="bg-white">
         <h2 id="footer-heading" class="sr-only">Footer</h2>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="border-t border-gray-200">
+            <div class="border-t border-gray-200" v-if="false">
                 <div class="pt-16 pb-20">
                     <div class="md:flex md:justify-center">
                         <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""

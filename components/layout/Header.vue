@@ -182,9 +182,16 @@
 
                     <div class="ml-auto flex items-center">
                         <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                            <NuxtLink to="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in
+                            </NuxtLink>
                             <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                            <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                            <NuxtLink to="/register" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create
+                                account</NuxtLink>
+
+                        </div>
+                        <div>
+                            <a class="text-sm font-medium text-gray-700 hover:text-gray-800" href="#"
+                                @click.prevent="logout">Logout</a>
                         </div>
 
 
@@ -350,8 +357,23 @@ const navigation = {
     pages: [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
+        { name: 'My', href: '/my' }
     ],
 }
 
 const open = ref(false)
+
+
+async function logout() {
+    await apiFetch('logout', {
+        method: 'POST',
+    })
+        .catch((error) => {
+            console.log(error.data)
+        })
+        .finally(() => {
+            window.location.href = '/'
+        })
+
+}
 </script>
