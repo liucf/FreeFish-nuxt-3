@@ -73,8 +73,13 @@
 
   
 <script setup lang="ts">
+
+definePageMeta({
+    middleware: ['guest']
+})
+
 useSeoMeta({
-    title: 'Login | ' + useState('title').value
+    title: 'Register | ' + useState('title').value
 })
 
 const name = ref('')
@@ -92,21 +97,28 @@ async function register() {
 
     await csrf()
 
-    await apiFetch('/register', {
-        method: 'POST',
-        body: {
-            name: name.value,
-            email: email.value,
-            password: password.value,
-            password_confirmation: passwordConfirm.value,
-        },
-    }).catch((error) => {
+    try {
+        await apiFetch('/register', {
+            method: 'POST',
+            body: {
+                name: name.value,
+                email: email.value,
+                password: password.value,
+                password_confirmation: passwordConfirm.value,
+            },
+        })
+
+        const { data: user } = await useApiFetch('/api/user')
+        setUser(user.value.name)
+    }
+    catch (error) {
         console.log(error.data)
         errors.value = Object.values(error.data.errors).flat()
-    }).finally(() => {
+    }
+    finally {
         if (errors.value.length === 0) {
             window.location.href = '/my'
         }
-    })
+    }
 }
 </script>

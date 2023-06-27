@@ -8,5 +8,8 @@
 </template>
   
 <script setup>
+definePageMeta({
+    middleware: ['auth']
+})
 const { data: user } = await useApiFetch('/api/user')
 </script>

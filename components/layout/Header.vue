@@ -180,39 +180,42 @@
                         </div>
                     </PopoverGroup>
 
-                    <div class="ml-auto flex items-center">
-                        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <NuxtLink to="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in
-                            </NuxtLink>
-                            <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                            <NuxtLink to="/register" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create
-                                account</NuxtLink>
-
+                    <ClientOnly>
+                        <div class="ml-auto flex items-center">
+                            <div v-if="!isLoggedIn"
+                                class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                <NuxtLink to="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in
+                                </NuxtLink>
+                                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                <NuxtLink to="/register" class="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                    Create
+                                    account</NuxtLink>
+                            </div>
+                            <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else>
+                                <NuxtLink to="/my" class="text-sm font-medium text-gray-700 hover:text-gray-800">My Account
+                                </NuxtLink>
+                                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                <a class="text-sm font-medium text-gray-700 hover:text-gray-800" href="#"
+                                    @click.prevent="logout">Logout</a>
+                            </div>
+                            <!-- Search -->
+                            <div class="flex lg:ml-6">
+                                <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
+                                    <span class="sr-only">Search</span>
+                                    <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
+                                </a>
+                            </div>
+                            <!-- Cart -->
+                            <div class="ml-4 flow-root lg:ml-6">
+                                <a href="#" class="group -m-2 flex items-center p-2">
+                                    <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                        aria-hidden="true" />
+                                    <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                    <span class="sr-only">items in cart, view bag</span>
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <a class="text-sm font-medium text-gray-700 hover:text-gray-800" href="#"
-                                @click.prevent="logout">Logout</a>
-                        </div>
-
-
-                        <!-- Search -->
-                        <div class="flex lg:ml-6">
-                            <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
-                                <span class="sr-only">Search</span>
-                                <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
-                            </a>
-                        </div>
-
-                        <!-- Cart -->
-                        <div class="ml-4 flow-root lg:ml-6">
-                            <a href="#" class="group -m-2 flex items-center p-2">
-                                <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                    aria-hidden="true" />
-                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                <span class="sr-only">items in cart, view bag</span>
-                            </a>
-                        </div>
-                    </div>
+                    </ClientOnly>
                 </div>
             </div>
         </nav>
@@ -357,7 +360,6 @@ const navigation = {
     pages: [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
-        { name: 'My', href: '/my' }
     ],
 }
 
@@ -365,15 +367,20 @@ const open = ref(false)
 
 
 async function logout() {
-    await apiFetch('logout', {
-        method: 'POST',
-    })
-        .catch((error) => {
-            console.log(error.data)
+
+    try {
+        await apiFetch('logout', {
+            method: 'POST',
         })
-        .finally(() => {
-            window.location.href = '/'
-        })
+    }
+    catch (error) {
+        console.log(error.data)
+    }
+    finally {
+        removeUser()
+        window.location.href = '/'
+    }
+
 
 }
 </script>

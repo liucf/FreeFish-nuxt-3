@@ -111,7 +111,10 @@
 
   
 <script setup lang="ts">
-import { useApiFetch } from 'composables/fetch';
+
+definePageMeta({
+    middleware: ['guest']
+})
 
 useSeoMeta({
     title: 'Login | ' + useState('title').value
@@ -130,19 +133,26 @@ async function login() {
 
     await csrf()
 
-    await apiFetch('/login', {
-        method: 'POST',
-        body: {
-            email: email.value,
-            password: password.value
-        },
-    }).catch((error) => {
-        console.log(error.data)
+    try {
+        await apiFetch('/login', {
+            method: 'POST',
+            body: {
+                email: email.value,
+                password: password.value
+            },
+        })
+
+        const { data: user } = await useApiFetch('/api/user')
+
+        setUser(user.value.name)
+
+        window.location.href = '/my'
+    }
+    catch (error) {
+        console.log(error)
         errors.value = Object.values(error.data.errors).flat()
-    }).finally(() => {
-        if (errors.value.length === 0) {
-            window.location.href = '/my'
-        }
-    })
+    }
+
+
 }
 </script>

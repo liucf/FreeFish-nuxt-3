@@ -1,4 +1,4 @@
-export function useApiFetchOptions(opts) {
+export function useApiFetchOptions(opts: any) {
     const config = useRuntimeConfig();
     const token = useCookie('XSRF-TOKEN')
     // const { $i18n } = useNuxtApp();
@@ -14,10 +14,10 @@ export function useApiFetchOptions(opts) {
     };
 }
 
-export function useApiFetch(url, opts) {
+export function useApiFetch(url: string, opts: any) {
     return useFetch(url, useApiFetchOptions(opts));
 }
 
-export function apiFetch(url, opts) {
+export function apiFetch(url: string, opts: any) {
     return $fetch(url, useApiFetchOptions(opts));
 }
