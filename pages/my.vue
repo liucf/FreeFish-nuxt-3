@@ -1,15 +1,20 @@
 <template>
     <div class="container mx-auto w-1/2 py-8">
-        <div>
-            <div>Name: {{ user?.name }}</div>
-            <div>Email: {{ user?.email }}</div>
+        <div v-if="user">
+            <div>Name: {{ user?.data.name }}</div>
         </div>
     </div>
 </template>
   
 <script setup>
+
 definePageMeta({
-    middleware: ['auth']
+    middleware: 'auth'
 })
-const { data: user } = await useApiFetch('/api/user')
+
+const user = ref(null)
+
+onMounted(async () => {
+    user.value = await myFetch('/api/user')
+})
 </script>

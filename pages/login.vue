@@ -1,19 +1,11 @@
 
 <template>
-    <!--
-    This example requires updating your template:
-
-    ```
-    <html class="h-full bg-gray-50">
-    <body class="h-full">
-    ```
-  -->
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
 
-        <ul v-if="errors.length > 0"
+        <ul v-if="errors?.length > 0"
             class="mt-6 list-disc list-inside text-sm text-red-500 text-center sm:mx-auto sm:w-full sm:max-w-md">
             <li v-for="(error, index) in errors" :key="index" class="text-red-500 text-sm italic list-none">{{ error }}</li>
         </ul>
@@ -52,8 +44,17 @@
 
                     <div>
                         <button type="submit"
-                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Sign
-                            in</button>
+                            class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-lightning-yellow-500 focus:ring-offset-2"
+                            :disabled="isLoading" :class="!isLoading ? 'hover:bg-lightning-yellow-500' : ''">
+                            <svg v-if="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                                </circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Sign in</button>
                     </div>
                 </form>
 
@@ -110,7 +111,7 @@
 </template>
 
   
-<script setup lang="ts">
+<script setup>
 
 definePageMeta({
     middleware: ['guest']
@@ -123,18 +124,18 @@ useSeoMeta({
 const email = ref('')
 const password = ref('')
 const errors = ref([])
+const isLoading = ref(false)
 
 function csrf() {
-    return apiFetch('/sanctum/csrf-cookie')
+    return myFetch('/sanctum/csrf-cookie')
 }
 
 async function login() {
-    errors.value = []
-
     await csrf()
-
+    isLoading.value = true
+    errors.value = []
     try {
-        await apiFetch('/login', {
+        await myFetch('/login', {
             method: 'POST',
             body: {
                 email: email.value,
@@ -142,17 +143,15 @@ async function login() {
             },
         })
 
-        const { data: user } = await useApiFetch('/api/user')
-
-        setUser(user.value.name)
-
+        const user = await myFetch('/api/user')
+        // console.log(user)
+        const { setUser } = useAuth()
+        setUser(user.name)
         window.location.href = '/my'
     }
     catch (error) {
-        console.log(error)
         errors.value = Object.values(error.data.errors).flat()
     }
-
-
+    isLoading.value = false
 }
 </script>

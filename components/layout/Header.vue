@@ -67,21 +67,38 @@
                                 </TabPanel>
                             </TabPanels>
                         </TabGroup>
-
                         <div class="space-y-6 border-t border-gray-200 py-6 px-4">
                             <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
-                                <a :href="page.href" class="-m-2 block p-2 font-medium text-gray-900">{{ page.name }}</a>
+                                <NuxtLink :href="page.href" class="-m-2 block p-2 font-medium text-gray-900">{{ page.name }}
+                                </NuxtLink>
                             </div>
                         </div>
 
-                        <div class="space-y-6 border-t border-gray-200 py-6 px-4">
-                            <div class="flow-root">
-                                <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                        <div class=" border-t border-gray-200 px-4">
+                            <div v-if="!isLoggedIn" class="py-6 space-y-6">
+                                <div class="flow-root">
+                                    <NuxtLink href="/login" class="-m-2 block p-2 font-medium text-gray-900">Sign in
+                                    </NuxtLink>
+                                </div>
+                                <div class="flow-root">
+                                    <NuxtLink href="/register" class="-m-2 block p-2 font-medium text-gray-900">Create
+                                        account
+                                    </NuxtLink>
+                                </div>
                             </div>
-                            <div class="flow-root">
-                                <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
+                            <div v-else class="py-6 space-y-6">
+                                <div class="flow-root">
+                                    <NuxtLink to="/my" class="-m-2 block p-2 font-medium text-gray-900">
+                                        My Account
+                                    </NuxtLink>
+                                </div>
+                                <div class="flow-root">
+                                    <a class="-ml-2 block p-2 font-medium text-gray-900" href="#"
+                                        @click.prevent="logout">Logout</a>
+                                </div>
                             </div>
                         </div>
+
 
 
                     </DialogPanel>
@@ -90,10 +107,10 @@
         </Dialog>
     </TransitionRoot>
 
-    <header class="relative overflow-hidden">
+    <header class="relative">
         <!-- Top navigation -->
         <nav aria-label="Top"
-            class="relative z-20 bg-white bg-opacity-90 backdrop-blur-xl backdrop-filter border-b border-gray-200">
+            class="relative z-20 bg-white dark:bg-gray-800 dark:text-white bg-opacity-90 backdrop-blur-xl backdrop-filter border-b border-gray-200 dark:border-gray-600">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center">
                     <button type="button" class="rounded-md bg-white p-2 text-gray-400 lg:hidden" @click="open = true">
@@ -103,18 +120,20 @@
 
                     <!-- Logo -->
                     <div class="ml-4 flex lg:ml-0">
-                        <a href="#">
-                            <span class="sr-only">Your Company</span>
-                            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt="" />
-                        </a>
+                        <NuxtLink href="/">
+                            <span class="sr-only">Free Fish</span>
+                            <img class="h-8 w-auto bg-primary rounded-md" src="/logo.svg" alt="Logo" />
+                        </NuxtLink>
                     </div>
 
                     <!-- Flyout menus -->
                     <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
                         <div class="flex h-full space-x-8">
-                            <Popover v-for="category in navigation.categories" :key="category.name" class="flex"
-                                v-slot="{ open }">
+                            <NuxtLink v-for="page in navigation.pages" :key="page.name" :href="page.href"
+                                class="header-link">{{ page.name
+                                }}</NuxtLink>
+                            <Popover v-if="false" v-for="category in navigation.categories" :key="category.name"
+                                class="flex" v-slot="{ open }">
                                 <div class="relative flex">
                                     <PopoverButton
                                         :class="[open ? 'text-indigo-600 border-b-indigo-600 ' : 'border-transparent text-gray-700 hover:text-gray-800', 'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out focus-visible:outline-transparent']">
@@ -173,30 +192,28 @@
                                     </PopoverPanel>
                                 </transition>
                             </Popover>
-
-                            <NuxtLink v-for="page in navigation.pages" :key="page.name" :href="page.href"
-                                class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ page.name
-                                }}</NuxtLink>
                         </div>
                     </PopoverGroup>
 
                     <ClientOnly>
-                        <div class="ml-auto flex items-center">
+                        <div class="ml-auto flex items-center h-full">
                             <div v-if="!isLoggedIn"
-                                class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                <NuxtLink to="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in
+                                class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6 h-full">
+                                <NuxtLink to="/login" class="header-link">
+                                    Sign in
                                 </NuxtLink>
                                 <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                <NuxtLink to="/register" class="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                <NuxtLink to="/register" class="header-link">
                                     Create
                                     account</NuxtLink>
+                                <!-- <a class="header-link" href="#" @click.prevent="logout">Logout</a> -->
                             </div>
                             <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else>
-                                <NuxtLink to="/my" class="text-sm font-medium text-gray-700 hover:text-gray-800">My Account
+                                <NuxtLink to="/my" class="header-link">
+                                    My Account
                                 </NuxtLink>
                                 <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                <a class="text-sm font-medium text-gray-700 hover:text-gray-800" href="#"
-                                    @click.prevent="logout">Logout</a>
+                                <a class="header-link" href="#" @click.prevent="logout">Logout</a>
                             </div>
                             <!-- Search -->
                             <div class="flex lg:ml-6">
@@ -205,15 +222,9 @@
                                     <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
                                 </a>
                             </div>
-                            <!-- Cart -->
-                            <div class="ml-4 flow-root lg:ml-6">
-                                <a href="#" class="group -m-2 flex items-center p-2">
-                                    <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                        aria-hidden="true" />
-                                    <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                    <span class="sr-only">items in cart, view bag</span>
-                                </a>
-                            </div>
+
+                            <LayoutTheme />
+
                         </div>
                     </ClientOnly>
                 </div>
@@ -223,6 +234,9 @@
 </template>
 
 <script setup>
+
+const { isLoggedIn, removeUser } = useAuth()
+
 import {
     Dialog,
     DialogPanel,
@@ -241,125 +255,11 @@ import {
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, UserIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = {
-    categories: [
-        {
-            id: 'women',
-            name: 'Women',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Dresses', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Denim', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Significant Other', href: '#' },
-                    ],
-                },
-            ],
-        },
-        {
-            id: 'men',
-            name: 'Men',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                    ],
-                },
-            ],
-        },
-    ],
     pages: [
         { name: 'Home', href: '/' },
-        { name: 'About', href: '/about' },
+        { name: 'Category', href: '/categories' },
+        // { name: 'Sell', href: '/sell' },
+        { name: 'Contact', href: '/contact' },
     ],
 }
 
@@ -367,20 +267,15 @@ const open = ref(false)
 
 
 async function logout() {
-
     try {
-        await apiFetch('logout', {
+        await myFetch('/logout', {
             method: 'POST',
         })
-    }
-    catch (error) {
-        console.log(error.data)
-    }
-    finally {
+    } catch (err) {
+        console.log(err.data)
+    } finally {
         removeUser()
-        window.location.href = '/'
+        window.location.pathname = '/'
     }
-
-
 }
 </script>

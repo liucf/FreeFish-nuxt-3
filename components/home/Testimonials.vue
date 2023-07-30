@@ -2,7 +2,8 @@
     <!-- Testimonials -->
     <section aria-labelledby="testimonial-heading" class="relative mx-auto max-w-7xl py-24 px-4 sm:px-6 lg:py-32 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-none">
-            <h2 id="testimonial-heading" class="text-2xl font-bold tracking-tight text-gray-900">What are people saying?
+            <h2 id="testimonial-heading" class="text-2xl font-bold tracking-tight dark:text-gray-100 text-gray-900">What are
+                people saying?
             </h2>
 
             <div class="mt-16 space-y-16 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
@@ -14,8 +15,9 @@
                             fill="currentColor" />
                     </svg>
                     <div class="mt-8 sm:mt-0 sm:ml-6 lg:mt-10 lg:ml-0">
-                        <p class="text-lg text-gray-600">{{ testimonial.quote }}</p>
-                        <cite class="mt-4 block font-semibold not-italic text-gray-900">{{ testimonial.attribution }}</cite>
+                        <p class="text-lg text-gray-600 dark:text-gray-200">{{ testimonial.quote }}</p>
+                        <cite class="mt-4 block font-semibold not-italic text-gray-900 dark:text-gray-300">{{
+                            testimonial.attribution }}</cite>
                     </div>
                 </blockquote>
             </div>

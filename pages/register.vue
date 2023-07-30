@@ -1,13 +1,5 @@
 
 <template>
-    <!--
-    This example requires updating your template:
-
-    ```
-    <html class="h-full bg-gray-50">
-    <body class="h-full">
-    ```
-  -->
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Register a Account</h2>
@@ -24,8 +16,7 @@
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700">User Name</label>
                         <div class="mt-1">
-                            <input id="name" v-model="name" name="name" type="text" autocomplete="name"
-                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+                            <input id="name" v-model="name" name="name" type="text" autocomplete="name" class="input" />
                         </div>
                     </div>
 
@@ -33,15 +24,14 @@
                         <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                         <div class="mt-1">
                             <input id="email" v-model="email" name="email" type="email" autocomplete="email"
-                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+                                class="input" />
                         </div>
                     </div>
 
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                         <div class="mt-1">
-                            <input id="password" v-model="password" name="password" type="password"
-                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+                            <input id="password" v-model="password" name="password" type="password" class="input" />
                         </div>
                     </div>
 
@@ -49,22 +39,16 @@
                         <label for="password" class="block text-sm font-medium text-gray-700">Password Confirm</label>
                         <div class="mt-1">
                             <input id="passwordConfirm" v-model="passwordConfirm" name="passwordConfirm" type="password"
-                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+                                class="input" />
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between" v-if="false">
-                        <div class="text-sm">
-                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
-                        </div>
-                    </div>
 
                     <div>
                         <button type="submit"
-                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Register</button>
+                            class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-lightning-yellow-500 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2">Register</button>
                     </div>
                 </form>
-
 
             </div>
         </div>
@@ -72,7 +56,7 @@
 </template>
 
   
-<script setup lang="ts">
+<script setup>
 
 definePageMeta({
     middleware: ['guest']
@@ -88,8 +72,10 @@ const password = ref('')
 const passwordConfirm = ref('')
 const errors = ref([])
 
+const { $apiFetch } = useNuxtApp()
+
 function csrf() {
-    return apiFetch('/sanctum/csrf-cookie')
+    return $fetch('/sanctum/csrf-cookie')
 }
 
 async function register() {
@@ -98,7 +84,7 @@ async function register() {
     await csrf()
 
     try {
-        await apiFetch('/register', {
+        await $apiFetch('/register', {
             method: 'POST',
             body: {
                 name: name.value,
@@ -107,9 +93,8 @@ async function register() {
                 password_confirmation: passwordConfirm.value,
             },
         })
-
-        const { data: user } = await useApiFetch('/api/user')
-        setUser(user.value.name)
+        // const { data: user } = await useApiFetch('/api/user')
+        // setUser(user.value.name)
     }
     catch (error) {
         console.log(error.data)
@@ -117,7 +102,7 @@ async function register() {
     }
     finally {
         if (errors.value.length === 0) {
-            window.location.href = '/my'
+            // window.location.href = '/my'
         }
     }
 }
