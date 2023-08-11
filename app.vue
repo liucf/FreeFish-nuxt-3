@@ -2,7 +2,7 @@
   <div class="bg-white dark:bg-gray-800 dark:text-white">
     <NuxtLoadingIndicator />
     <LayoutHeader />
-    <main class="bg-white dark:bg-gray-800 dark:text-white">
+    <main class="min-h-[500px] bg-white dark:bg-gray-800 dark:text-white">
       <NuxtPage />
     </main>
     <LayoutFooter />
@@ -10,8 +10,11 @@
 </template>
 
 <script setup lang="ts">
-useHead({ bodyAttrs: { class: 'h-full bg-white dark:bg-gray-800 dark:text-white' }, htmlAttrs: { class: 'h-full' } })
+useHead({
+  bodyAttrs: { class: "h-full bg-white dark:bg-gray-800 dark:text-white" },
+  htmlAttrs: { class: "h-full" },
+});
 useSeoMeta({
-  title: useState<string>('title', () => 'FreeFish'),
-})
+  title: useState<string>("title", () => "FreeFish"),
+});
 </script>

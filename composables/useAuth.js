@@ -9,12 +9,14 @@ export function useAuth() {
 
     function removeUser() {
         localStorage.removeItem('user')
+        let cookie = useCookie('XSRF-TOKEN')
+        cookie.value = null
     }
 
     const isLoggedIn = computed(() => {
-        if (process.client) {
-            return !!localStorage.getItem('user')
-        }
+        // if (process.client) {
+        return !!localStorage.getItem('user')
+        // }
     })
 
     return { setUser, getUser, removeUser, isLoggedIn }

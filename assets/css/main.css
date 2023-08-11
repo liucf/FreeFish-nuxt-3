@@ -2,18 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+[v-cloak] {
+  display: none;
+}
 .router-link-active {
-    @apply border-b-2 border-b-lightning-yellow-400;
+  @apply border-b-2 border-b-lightning-yellow-400;
 }
 .input {
-    @apply block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-lightning-yellow-500 focus:outline-none focus:ring-lime-500 sm:text-sm;
+  @apply block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-lightning-yellow-500 focus:outline-none focus:ring-lime-500 sm:text-sm;
 }
-.checkout-input{
-    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm dark:bg-gray-700;
+.checkout-input {
+  @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 dark:bg-gray-700 sm:text-sm;
 }
-.header-link{
-    @apply h-full flex text-sm font-medium text-gray-700 dark:text-gray-200 dark:hover:text-gray-50 hover:text-gray-800 items-center;
+.header-link {
+  @apply flex h-full items-center text-sm font-medium text-gray-700 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-50;
 }
 h2 {
-    @apply  dark:text-gray-100;
+  @apply dark:text-gray-100;
 }

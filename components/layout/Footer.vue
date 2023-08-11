@@ -4,7 +4,7 @@
     class="rela bg-white dark:bg-gray-800 dark:text-white"
   >
     <h2 id="footer-heading" class="sr-only">Footer</h2>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="border-t border-gray-200" v-if="false">
         <div class="pb-20 pt-16">
           <div class="md:flex md:justify-center">
@@ -108,7 +108,7 @@
               v-for="item in footerNavigation.bottomLinks"
               :key="item.name"
               :href="item.href"
-              class="text-sm text-gray-500 hover:text-gray-600 dark:text-gray-100"
+              class="border-none text-sm text-gray-500 hover:text-gray-600 dark:text-gray-100"
               >{{ item.name }}</NuxtLink
             >
           </div>

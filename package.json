@@ -26,10 +26,13 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
+    "@stripe/stripe-js": "^1.54.2",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
     "laravel-vue-pagination": "^4.1.0",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.43"
+    "moment-timezone": "^0.5.43",
+    "sweetalert2": "^11.7.20",
+    "vee-validate": "^4.11.1"
   }
 }
