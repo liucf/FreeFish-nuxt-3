@@ -8,10 +8,11 @@ export default defineNuxtPlugin((_nuxtApp) => {
             // console.log('[fetch response error]', request, response.status, response.body)
             switch (response.status) {
                 case 401:
-                    // console.log('401')
-                    removeUser()
-                    // alert('Please login again')
-                    window.location.href = '/login'
+                    console.log('401')
+                    console.log(response._data.message)
+                // removeUser()
+                // alert('Please login again')
+                // window.location.href = '/login'
                 case 422:
                     const { $swal } = useNuxtApp();
                     console.log(response._data.message)
