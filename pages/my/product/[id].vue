@@ -2,12 +2,21 @@
   <div class="container mx-auto py-8">
     <MyVerified :verify="user ? user.data.hasVerifiedEmail : true" />
 
-    <MySidebar>
+    <MySidebar currentSlug="my-products">
       <Progress v-if="product.status == 'sold'" :stepStatus="getStepStatus()" />
 
       <section aria-labelledby="payment-details-heading">
         <form action="#" method="POST">
           <h3>Product Information</h3>
+
+          <div class="mt-6">
+            <img
+              :src="$getimgpath(form.thumbs[0]?.name)"
+              :alt="form.thumbs[0]?.name"
+              class="h-[128px] w-[128px] object-cover object-center"
+            />
+          </div>
+
           <div class="mt-6">
             <label for="email" class="block text-sm font-medium text-gray-700"
               >Name</label
@@ -173,6 +182,8 @@
 </template>
 
 <script setup>
+const { $getimgpath } = useNuxtApp();
+
 const route = useRoute();
 let product = ref({});
 let order = ref({});
@@ -184,6 +195,7 @@ let form = ref({
   category: "",
   description: "",
   order: null,
+  thumbs: [],
 });
 let delivery = ref({
   delivered_by: "",
@@ -205,6 +217,7 @@ const getResults = async () => {
   form.value.price = product.value.price;
   form.value.description = product.value.description;
   form.value.order = product.value.order;
+  form.value.thumbs = product.value.thumbs;
   delivery.value.delivered_by = product.value.order?.delivered_by;
   delivery.value.tracking_number = product.value.order?.tracking_number;
 };

@@ -4,7 +4,7 @@
       <div
         class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200"
       >
-        <img
+        <nuxt-img
           :src="$getimgpath(product.thumbs[0]?.name)"
           class="h-full w-full object-cover object-center group-hover:opacity-75"
         />
@@ -15,7 +15,7 @@
           {{ product.name }}
         </h3>
         <p class="mt-1 text-gray-900 dark:text-gray-100">
-          <span class="line-through">${{ product.originalPrice }}</span>
+          <!-- <span class="line-through">${{ product.originalPrice }}</span> -->
           ${{ product.price }}
         </p>
       </div>

@@ -87,12 +87,20 @@
           />
         </div>
 
-        <div>
+        <div v-if="product.user_id != user?.data.id">
           <NuxtLink
             :href="`/checkout/${product?.name}`"
             class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-lightning-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-lightning-yellow-500 focus:outline-none focus:ring-2 focus:ring-lightning-yellow-300 focus:ring-offset-2"
           >
             Buy now
+          </NuxtLink>
+        </div>
+        <div v-else>
+          <NuxtLink
+            :href="`/my/product/${product?.name}`"
+            class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-lightning-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-lightning-yellow-500 focus:outline-none focus:ring-2 focus:ring-lightning-yellow-300 focus:ring-offset-2"
+          >
+            Go to Edit
           </NuxtLink>
         </div>
       </div>
@@ -232,6 +240,8 @@ let reviewsCount = ref(5);
 useSeoMeta({
   title: route.params.name + " | " + useState("title").value,
 });
+
+const user = await myFetch("/api/user");
 
 // const getResults = async () => {
 let productReturn = await useMyFetch("/api/product/show/" + route.params.name);

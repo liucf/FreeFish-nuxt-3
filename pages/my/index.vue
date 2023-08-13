@@ -14,15 +14,31 @@
                 >
                   Profile
                 </h2>
-                <p class="mt-1 text-sm text-gray-500">
+                <!-- <p class="mt-1 text-sm text-gray-500">
                   This is where you can update your profile.
-                </p>
+                </p> -->
               </div>
 
-              <h1>Balance: {{ user?.data.balance }}</h1>
-              <h1>Rating: {{ user?.data.rating }}</h1>
-
-              <div class="mt-6">
+              <div class="mt-8 space-y-4">
+                <div>
+                  <span class="font-semibold">Email:</span>
+                  {{ user?.data.email }}
+                </div>
+                <div>
+                  <span class="font-semibold">Username:</span>
+                  {{ user?.data.name }}
+                </div>
+                <div>
+                  <span class="font-semibold">Balance:</span> NZ${{
+                    user?.data.balance
+                  }}
+                </div>
+                <div>
+                  <span class="font-semibold">Rating:</span>
+                  {{ user?.data.rating }}
+                </div>
+              </div>
+              <!-- <div class="mt-6">
                 <div class="py-4">
                   <label
                     for="email"
@@ -62,7 +78,7 @@
                 class="inline-flex justify-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
               >
                 Save
-              </button>
+              </button> -->
             </div>
           </div>
         </form>

@@ -27,7 +27,8 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    'dayjs-nuxt'
+    'dayjs-nuxt',
+    '@nuxt/image'
   ],
 
   dayjs: {

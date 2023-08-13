@@ -1,4 +1,4 @@
-export function useApiFetchOptions(opts) {
+export function useApiFetchOptions(opts, withFile) {
     const config = useRuntimeConfig();
     const token = useCookie('XSRF-TOKEN')
     // const { $i18n } = useNuxtApp();
@@ -8,19 +8,20 @@ export function useApiFetchOptions(opts) {
         headers: {
             Accept: 'application/json',
             'X-XSRF-TOKEN': token.value,
+            'Content-Type': withFile ? 'multipart/form-data' : 'application/json',
         },
         ...opts,
     };
 }
 
-export function useMyFetch(url, opts) {
+export function useMyFetch(url, opts, withFile = false) {
     try {
-        return useFetch(url, useApiFetchOptions(opts));
+        return useFetch(url, useApiFetchOptions(opts, withFile));
     } catch (e) {
         console.log(e)
     }
 }
 
-export function myFetch(url, opts) {
-    return $fetch(url, useApiFetchOptions(opts));
+export function myFetch(url, opts, withFile = false) {
+    return $fetch(url, useApiFetchOptions(opts, withFile));
 }

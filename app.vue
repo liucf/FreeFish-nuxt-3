@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white dark:bg-gray-800 dark:text-white">
-    <NuxtLoadingIndicator />
+    <NuxtLoadingIndicator :throttle="0" />
     <LayoutHeader />
     <main class="min-h-[500px] bg-white dark:bg-gray-800 dark:text-white">
       <NuxtPage />

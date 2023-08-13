@@ -4,7 +4,7 @@
   >
     <!-- <HomeHero /> -->
     <HomeTrending />
-    <HomeCollections />
+    <!-- <HomeCollections /> -->
     <!-- <HomeSale /> -->
     <HomeTestimonials />
   </div>

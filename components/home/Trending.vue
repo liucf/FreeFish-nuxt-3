@@ -7,15 +7,15 @@
           id="trending-heading"
           class="text-2xl font-bold tracking-tight text-gray-900"
         >
-          Trending products
+          Latest products
         </h2>
-        <a
+        <!-- <a
           href="#"
           class="hidden text-sm font-semibold text-lightning-yellow-600 hover:text-lightning-yellow-500 sm:block"
         >
           See everything
           <span aria-hidden="true"> &rarr;</span>
-        </a>
+        </a> -->
       </div>
 
       <div class="mx-4 mt-8 grid grid-cols-2 gap-4 lg:mx-0 lg:grid-cols-4">

@@ -33,7 +33,7 @@
             <div class="overflow-hidden bg-white shadow sm:rounded-md">
               <ul role="list" class="divide-y divide-gray-200">
                 <li v-for="product in products?.data.data" :key="product.id">
-                  <MyProduct :product="product" />
+                  <MyProduct url="product" :product="product" />
                 </li>
               </ul>
             </div>
