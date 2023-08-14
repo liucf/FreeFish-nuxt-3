@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak v-if="!verify" class="rounded-md bg-yellow-50 p-4">
+  <div v-cloak v-if="!verify" class="rounded-md bg-yellow-50 p-4 mb-6">
     <div class="flex">
       <div class="flex-shrink-0">
         <ExclamationTriangleIcon
