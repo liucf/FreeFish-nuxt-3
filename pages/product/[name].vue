@@ -241,8 +241,6 @@ useSeoMeta({
   title: route.params.name + " | " + useState("title").value,
 });
 
-const user = await myFetch("/api/user");
-
 // const getResults = async () => {
 let productReturn = await useMyFetch("/api/product/show/" + route.params.name);
 product = productReturn.data;
