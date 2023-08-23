@@ -349,7 +349,7 @@
               <NuxtLink to="/register" class="header-link">
                 Create account</NuxtLink
               >
-              <a class="header-link" href="#" @click.prevent="logout">Logout</a>
+              <!-- <a class="header-link" href="#" @click.prevent="logout">Logout</a> -->
             </div>
             <div
               class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6"
