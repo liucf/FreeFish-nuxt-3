@@ -407,6 +407,7 @@ const navigation = {
     { name: "Category", href: "/categories" },
     { name: "Sell", href: "/sell" },
     { name: "Contact", href: "/contact" },
+    { name: "App", href: "/app" },
   ],
 };
 
